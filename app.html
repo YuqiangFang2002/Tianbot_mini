@@ -1,0 +1,36 @@
+<html>
+    <body>
+        <h1 style="text-align: center;"> TIANBOT APP</h1>
+        <p style="text-align: center;">
+          
+            <input style="width: 200px;height: 20px;" type="button" value="open led" onclick="openles();"><br><br>
+            <input style="width: 200px;height: 20px;" type="button" value="close led" onclick="closeles();"><br><br>
+            <input style="width: 200px;height: 20px;" type="button" value="turnleft" onclick="turnleft();"><br><br>
+            <input style="width: 200px;height: 20px;" type="button" value="stop" onclick="stop();"><br><br>
+        </p>
+    </body>
+    <script>
+        var ws = new WebSocket("ws://192.168.1.1/cmd_msg");
+        ws.onopen = function (){
+            console.log("ws opened.");
+            ws.send('useprog 1\r\n');
+        }
+        function openles(){
+            // alert("open led ...");
+            ws.send('l 5 255 0 0\r\n');
+        }
+        function closeles(){
+            // alert("close led ...");
+            ws.send('l 5 0 0 0\r\n');
+
+        }
+        function turnleft(){
+            // alert("turn left ...");
+           ws.send('m -500 500\r\n');
+        }
+        function stop(){
+            // alert("stop ...");
+            ws.send('m 0 0\r\n');
+        }
+    </script>
+</html>
